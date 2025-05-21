@@ -48,6 +48,7 @@ O sistema está programado para **gravar os dados em um arquivo CSV no cartão S
 > ⚠️ **Observação importante:**  
 > Como o projeto é executado em um **ambiente virtual (Wokwi)**, a gravação real em cartão SD **não é suportada**.  
 > Para simular o funcionamento completo, foi criado manualmente um arquivo `data.csv` de exemplo. Esse arquivo é utilizado no **dashboard em Python (Streamlit)** para visualizar os dados simulados.
+> Quando carregar o dashboard, fazer questão de adaptar o caminho no diretório do arquivo `data.csv`
 
 ## 📊 Dashboard Python (Streamlit)
 
