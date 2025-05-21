@@ -1,12 +1,19 @@
 #include <Arduino.h>
 #include <DHT.h> 
+#include <SPI.h>
+#include <SD.h>
 
 #define DHTPIN 21      
 #define DHTTYPE DHT22   
 #define BUTTON_P 22
-#define BUTTON_K 23
+#define BUTTON_K 17
 #define LDR_PIN 34
-#define RELAY_PIN 18   
+#define RELAY_PIN 4
+
+#define SD_CS    5  // Pino Chip Select
+#define SD_SCK   18 // Pino Clock
+#define SD_MOSI  23 // Pino MOSI
+#define SD_MISO  19 // Pino MISO
 
 DHT dht(DHTPIN, DHTTYPE);
 
@@ -21,6 +28,25 @@ void setup() {
 
   pinMode(RELAY_PIN, OUTPUT);
   digitalWrite(RELAY_PIN, LOW);
+
+
+
+  Serial.println("Inicializando o cartão microSD...");
+  if (!SD.begin(SD_CS)) {
+    Serial.println("Erro ao inicializar o microSD!");
+    while (1);
+  }
+  Serial.println("Cartão microSD inicializado com sucesso!");
+
+  File dataFile = SD.open("/data.csv", FILE_WRITE);
+  if (dataFile) {
+    // Escrever o cabeçalho no arquivo
+    dataFile.println("Humidity,Temperature,pH,FosforoPresente,PotassioPresente");
+    dataFile.close();
+    Serial.println("Arquivo criado com cabeçalho.");
+  } else {
+    Serial.println("Erro ao criar o arquivo.");
+  }
 }
 
 
@@ -59,4 +85,24 @@ void loop() {
   }
 
   Serial.println();
+
+
+
+  File dataFile = SD.open("/data.csv", FILE_WRITE);
+  if (dataFile) {
+    // Escrever os dados no arquivo
+    dataFile.print(humidity);
+    dataFile.print(",");
+    dataFile.print(temperature);
+    dataFile.print(",");
+    dataFile.print(pH);
+    dataFile.print(",");
+    dataFile.print(fosforoPresente);
+    dataFile.print(",");
+    dataFile.println(potassioPresente);
+    dataFile.close();
+    Serial.println("Dados registrados no arquivo.");
+  } else {
+    Serial.println("Erro ao abrir o arquivo.");
+  }
 }
