@@ -9,7 +9,7 @@ st.set_page_config(page_title="Dashboard Agrícola", layout="wide")
 # Carregar dados
 @st.cache_data
 def load_data():
-    return pd.read_csv("data.csv")
+    return pd.read_csv("C:/FIAP/Fase3_TrabalhoCAP1/src/data.csv")
 
 df = load_data()
 
