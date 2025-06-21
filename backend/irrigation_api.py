@@ -10,8 +10,8 @@ app = Flask(__name__)
 # Configurações do banco
 ORACLE_CONFIG = {
     'dsn': 'oracle.fiap.com.br:1521/orcl',
-    'user': 'RM566449',
-    'password': '181101'
+    'user': '********',
+    'password': '******'
 }
 
 TABELA = 'irrigacao_dados'
