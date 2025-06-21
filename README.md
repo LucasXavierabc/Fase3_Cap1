@@ -13,6 +13,7 @@
 ## 👨‍🎓 Integrantes: 
 - <a href="https://www.linkedin.com/company/inova-fusca">Nome do integrante 1</a>
 - <a href="https://www.linkedin.com/in/william--xavier/">William Xavier</a>
+- <a href="https://www.linkedin.com/in/lucas-xavier-a05199284/">Lucas Xavier</a>
 
 ## 👩‍🏫 Professores:
 ### Tutor(a) 
