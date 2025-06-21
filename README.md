@@ -11,7 +11,6 @@
 ## Nome do grupo
 
 ## 👨‍🎓 Integrantes: 
-- <a href="https://www.linkedin.com/company/inova-fusca">Nome do integrante 1</a>
 - <a href="https://www.linkedin.com/in/william--xavier/">William Xavier</a>
 - <a href="https://www.linkedin.com/in/lucas-xavier-a05199284/">Lucas Xavier</a>
 - <a> Jeniane Joice Malosti de Oliveira</a>
@@ -22,6 +21,8 @@
 ### Coordenador(a)
 - <a href="https://www.linkedin.com/in/andregodoichiovato/">André Godoi</a>
 
+## Link com funcionamento dos arquivos
+- <a href="https://youtu.be/JfXfxOZYt78">Video youtube</a>
 
 ## 📜 Descrição
 
@@ -41,27 +42,23 @@ A estrutura de pastas do projeto é organizada para facilitar o desenvolvimento,
 
 ```
 .
-├── .github/                     # Configurações do GitHub (workflows, templates)
-├── assets/                      # Imagens e outros recursos visuais do README e projeto
-├── config/                      # Arquivos de configuração gerais (ex: credenciais de BD)
-├── document/                    # Documentação do projeto (relatórios, especificações)
-│   └── other/                   # Documentos complementares
-├── scripts/                     # Scripts auxiliares (deploy, migrações de BD)
-├── src/                         # Código fonte principal do projeto
-│   ├── backend/                 # Código da API Flask para comunicação com o banco de dados
-│   │   └── api.py               # Servidor Flask com endpoints para dados de irrigação
-│   ├── data_generation/         # Scripts para geração de dados fictícios
-│   │   └── data_generator.py    # Gerador de dados realísticos para a API
-│   ├── esp32/                   # Código C/C++ para o ESP32 (firmware)
-│   │   └── main.ino             # Código principal do ESP32 (com LCD e Serial Plotter)
-│   ├── ml_model/                # Código para treinamento e uso do modelo de Machine Learning
-│   │   ├── ml_irrigation_system.py # Sistema de ML para predição de irrigação
-│   │   └── model_analyzer.py    # Ferramenta para análise e relatório do modelo de ML
-│   │   └── modelo_irrigacao.pkl # Modelo de ML treinado (gerado após o treinamento)
-│   └── frontend/                # Código da interface de usuário (Streamlit)
-│       └── app.py               # Aplicação Streamlit para dashboard interativo
-├── README.md                    # Este arquivo
-└── .gitignore                   # Arquivo para ignorar arquivos e pastas no Git
+├── assets/                  # Imagens e outros recursos visuais do README e projeto
+├── backend/                 # Código da API Flask para comunicação com o banco de dados
+│   └── irrigation_api.py               # Servidor Flask com endpoints para dados de irrigação
+├── data_generation/         # Scripts para geração de dados fictícios
+│   └── data_generator.py    # Gerador de dados realísticos para a API
+├── esp32/                   # Código C/C++ para o ESP32 (firmware)
+│   ├── code.INO             # Código principal do ESP32 (com LCD e Serial Plotter)
+│   ├── diagram.json
+│   ├── platformio.ini
+│   └── wokwi.toml
+├── frontend/                # Código da interface de usuário (Streamlit)
+│   └── dashboard_oracle.py               # Aplicação Streamlit para dashboard interativo
+├── ml_model/                # Código para treinamento e uso do modelo de Machine Learning
+│   ├── ml_irrigation_system.py # Sistema de ML para predição de irrigação
+│   ├── model_analyzer.py    # Ferramenta para análise e relatório do modelo de ML
+│   └── modelo_irrigacao.pkl # Modelo de ML treinado (gerado após o treinamento)
+└── README.md                # Este arquivo
 ```
 
 ## 🔧 Como executar o código
@@ -81,7 +78,7 @@ Para configurar e executar o projeto FarmTech Solutions, siga os passos abaixo. 
 
 1.  **Clonar o Repositório:**
     ```bash
-    git clone https://github.com/LucasXavierabc/Fase3_Cap1
+    git clone https://github.com/LucasXavierabc/Fase4_Cap1.git
     cd Fase4_Cap1
     ```
 
@@ -92,7 +89,7 @@ Para configurar e executar o projeto FarmTech Solutions, siga os passos abaixo. 
     source venv/bin/activate  # No Windows: venv\Scripts\activate
     pip install -r requirements.txt # Crie este arquivo com as dependências
     ```
-    **Conteúdo para `requirements.txt`:**
+    **Conteúdo sugerido para `requirements.txt`:**
     ```
     Flask
     oracledb
@@ -107,7 +104,7 @@ Para configurar e executar o projeto FarmTech Solutions, siga os passos abaixo. 
 
 3.  **Configurar o Banco de Dados Oracle:**
     *   Certifique-se de que seu banco de dados Oracle esteja acessível.
-    *   No arquivo `src/backend/api.py`, atualize as configurações de conexão `ORACLE_CONFIG` com seu `dsn`, `user` e `password`.
+    *   No arquivo `backend/irrigation_api.py`, atualize as configurações de conexão `ORACLE_CONFIG` com seu `dsn`, `user` e `password`.
     *   A tabela `irrigacao_dados` será criada automaticamente na primeira execução da API se não existir.
 
 ### Execução dos Componentes
@@ -117,50 +114,43 @@ Siga a ordem recomendada para garantir o funcionamento correto do sistema.
 1.  **Iniciar a API (Backend):**
     Abra um terminal e execute:
     ```bash
-    python src/backend/api.py
+    python backend/irrigation_api.py
     ```
     A API estará disponível em `http://localhost:5000`.
 
 2.  **Gerar Dados (Opcional, para popular o BD):**
     Abra outro terminal e execute o gerador de dados. Você pode escolher entre inserção em lote ou contínua através do menu interativo.
     ```bash
-    python src/data_generation/data_generator.py
+    python data_generation/data_generator.py
     ```
     Para um teste rápido com 50 registros iniciais e 10 em tempo real:
     ```bash
-    python src/data_generation/data_generator.py rapido
+    python data_generation/data_generator.py rapido
     ```
 
 3.  **Treinar e Analisar o Modelo de Machine Learning:**
     Após ter dados no banco (gerados ou reais), treine o modelo.
     ```bash
-    python src/ml_model/ml_irrigation_system.py
+    python ml_model/ml_irrigation_system.py
     ```
     Para uma análise mais detalhada do modelo treinado:
     ```bash
-    python src/ml_model/model_analyzer.py
+    python ml_model/model_analyzer.py
     ```
-    O modelo treinado será salvo como `src/ml_model/modelo_irrigacao.pkl`.
+    O modelo treinado será salvo como `ml_model/modelo_irrigacao.pkl`.
 
 4.  **Executar o Dashboard Streamlit (Frontend):**
     Abra um novo terminal e inicie a aplicação Streamlit:
     ```bash
-    streamlit run src/frontend/app.py
+    streamlit run frontend/dashboard_oracle.py
     ```
     O dashboard será aberto em seu navegador padrão.
 
 5.  **Compilar e Simular o Código ESP32 (Wokwi):**
-    *   Abra o projeto ESP32 (`src/esp32/main.ino`) no Wokwi.
+    *   Abra o projeto ESP32 (`esp32/code.INO`) no Wokwi.
     *   Configure o display LCD (barramento I2C, pinos SDA e SCL) conforme o circuito.
     *   Inicie a simulação. O display LCD mostrará as métricas, e você poderá monitorar variáveis no Serial Plotter.
 
-### Integração do Serial Plotter
-
-Para demonstrar o uso do Serial Plotter, inclua capturas de tela do Wokwi aqui, mostrando o gráfico de uma ou mais variáveis (ex: umidade) em tempo real. Explique o que cada gráfico representa e como ele ajuda na análise do comportamento do sistema.
-
-**Exemplo de Print do Serial Plotter:**
-![Exemplo Serial Plotter](assets/serial_plotter_example.png)
-*Descrição: Este gráfico do Serial Plotter exibe a variação da umidade do solo ao longo do tempo. Observa-se que a umidade diminui gradualmente e sobe abruptamente quando a bomba de irrigação é ativada, demonstrando a resposta do sistema à necessidade hídrica.*
 
 ## 📋 Licença
 
